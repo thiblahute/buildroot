@@ -1,0 +1,35 @@
+From 73f7aebdc594582911c311b4fab99dbc1271a186 Mon Sep 17 00:00:00 2001
+From: Thibault Saunier <tsaunier@igalia.com>
+Date: Tue, 30 Jan 2018 17:51:02 -0300
+Subject: [PATCH] audio: Add missing G_BEGIN/END_DECLS
+
+---
+ gst-libs/gst/audio/audio-converter.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/gst-libs/gst/audio/audio-converter.h b/gst-libs/gst/audio/audio-converter.h
+index 1f6ddc5d1..218598689 100644
+--- a/gst-libs/gst/audio/audio-converter.h
++++ b/gst-libs/gst/audio/audio-converter.h
+@@ -23,9 +23,12 @@
+ #ifndef __GST_AUDIO_CONVERTER_H__
+ #define __GST_AUDIO_CONVERTER_H__
+ 
++
+ #include <gst/gst.h>
+ #include <gst/audio/audio.h>
+ 
++G_BEGIN_DECLS
++
+ typedef struct _GstAudioConverter GstAudioConverter;
+ 
+ /**
+@@ -108,4 +111,5 @@ gboolean             gst_audio_converter_samples         (GstAudioConverter * co
+                                                           gpointer in[], gsize in_frames,
+                                                           gpointer out[], gsize out_frames);
+ 
++G_END_DECLS
+ #endif /* __GST_AUDIO_CONVERTER_H__ */
+-- 
+2.16.1
+
