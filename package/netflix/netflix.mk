@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-NETFLIX_VERSION = 5765182b11843910edf3f1b6f5fe34f491cb6161
+#NETFLIX_VERSION = 5765182b11843910edf3f1b6f5fe34f491cb6161
+NETFLIX_VERSION = f132a0b4e5dbaf9784b1bd77a8c0fcb5c1645b40
 NETFLIX_SITE = git@github.com:Metrological/netflix.git
 NETFLIX_SITE_METHOD = git
 NETFLIX_LICENSE = PROPRIETARY
@@ -132,10 +133,12 @@ NETFLIX_DEPENDENCIES += libgles libegl
 else ifeq ($(BR2_PACKAGE_MARVELL_AMPSDK),y)
 ifeq ($(BR2_PACKAGE_WESTEROS)$(BR2_PACKAGE_WPEFRAMEWORK_COMPOSITOR),yy)
 NETFLIX_CONF_OPTS += \
-        -DGIBBON_GRAPHICS=wpeframework
+        -DGIBBON_GRAPHICS=wpeframework \
+        -DGST_VIDEO_RENDERING=synaptics
 else ifeq ($(BR2_PACKAGE_WESTEROS),y)
 NETFLIX_CONF_OPTS += \
-	-DGIBBON_GRAPHICS=wayland-egl
+	-DGIBBON_GRAPHICS=wayland-egl \
+        -DGST_VIDEO_RENDERING=synaptics
 else
 NETFLIX_CONF_OPTS += \
         -DGIBBON_GRAPHICS=wayland-egl \
