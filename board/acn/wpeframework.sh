@@ -65,10 +65,18 @@ metrological)
 ;;
 
 *)
+	# Workaround for rpcbind, it needs to have this netconfig file
+	export DESTINATION=/hdd/acn
+	if [ ! -d $DESTINATION ]; then
+		mkdir -p $DESTINATION/etc
+		cp -rfap /etc/* $DESTINATION/etc
+		ln -s $SOURCE/etc/netconfig $DESTINATION/etc/netconfig
+	fi
+
 	grep -q "/opt/wpe ext4" /proc/mounts && 
 		echo "/opt/wpe is already mounted" || mount -t ext4 --bind /hdd/metrological /opt/wpe
-	grep -q "/etc/ssl ext4" /proc/mounts && 
-		echo "/etc/ssl is already mounted" || mount -t ext4 --bind /hdd/metrological/etc/ssl/ /etc/ssl/
+	grep -q "/etc/ ext4" /proc/mounts && 
+		echo "/etc/ is already mounted" || mount -t ext4 --bind $DESTINATION/etc/ /etc/
 	grep -q "/usr/lib/gio ext4" /proc/mounts &&
 		echo "/usr/lib/gio is already mounted" || mount -t ext4 --bind $SOURCE/usr/lib/gio /usr/lib/gio
 	
