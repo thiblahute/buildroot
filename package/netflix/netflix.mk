@@ -132,15 +132,10 @@ NETFLIX_DEPENDENCIES += libgles libegl
 else ifeq ($(BR2_PACKAGE_MARVELL_AMPSDK),y)
 ifeq ($(BR2_PACKAGE_WESTEROS)$(BR2_PACKAGE_WPEFRAMEWORK_COMPOSITOR),yy)
 NETFLIX_CONF_OPTS += \
-        -DGIBBON_GRAPHICS=wpeframework \
-        -DGST_VIDEO_RENDERING=synaptics
-else ifeq ($(BR2_PACKAGE_WESTEROS),y)
-NETFLIX_CONF_OPTS += \
-	-DGIBBON_GRAPHICS=wayland-egl \
-        -DGST_VIDEO_RENDERING=synaptics
+        -DGIBBON_GRAPHICS=wpeframework
 else
 NETFLIX_CONF_OPTS += \
-        -DGIBBON_GRAPHICS=wayland-egl \
+        -DGIBBON_GRAPHICS=gles2-egl \
         -DCMAKE_C_FLAGS_RELEASE="-DLINUX -DEGL_API_FB" \
         -DCMAKE_CXX_FLAGS_RELEASE="-DLINUX -DEGL_API_FB" \
         -DCMAKE_C_FLAGS_DEBUG="-DLINUX -DEGL_API_FB" \
@@ -152,6 +147,9 @@ NETFLIX_CONF_OPTS += \
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_GL),y)
 NETFLIX_CONF_OPTS += \
 	-DGST_VIDEO_RENDERING=gl
+else
+NETFLIX_CONF_OPTS += \
+        -DGST_VIDEO_RENDERING=synaptics
 endif
 NETFLIX_DEPENDENCIES += libgles libegl
 else ifeq ($(BR2_PACKAGE_HAS_LIBEGL)$(BR2_PACKAGE_HAS_LIBGLES)$(BR2_PACKAGE_MESA3D),yyn)
@@ -265,6 +263,14 @@ define NETFLIX_INSTALL_TARGET_CMDS
 	$(INSTALL) -m 755 $(@D)/netflix/src/platform/gibbon/manufss $(TARGET_DIR)/usr/bin
 endef
 
+endif
+
+NETFLIX_PKGDIR = "$(TOP_DIR)/package/netflix"
+define NETFLIX_APPLY_LOCAL_PATCHES
+  $(APPLY_PATCHES) $(@D) $(NETFLIX_PKGDIR) 0001-synaptics_gles2.patch.conditional;
+endef
+ifeq ($(BR2_PACKAGE_MARVELL_AMPSDK),y)
+NETFLIX_POST_PATCH_HOOKS += NETFLIX_APPLY_LOCAL_PATCHES
 endif
 
 $(eval $(cmake-package))
