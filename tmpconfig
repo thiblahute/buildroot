@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2017.05-git-13418-g3a6c1ce5bb-dirty Configuration
+# Buildroot 2017.05-git-13419-g19d88565fe-dirty Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
