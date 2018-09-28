@@ -6,7 +6,7 @@
 
 # If enabled, choose the development version hash.
 ifeq ($(BR2_PACKAGE_WPEWEBKIT_BUILD_DEVELOPMENT_VERSION),y)
-WPEWEBKIT_VERSION_VALUE = d87dd8efb1ac316d270d8bc2076c800106f9507f
+WPEWEBKIT_VERSION_VALUE = 95fac1b02069eed7f18641854e57b6a4c6c3c0eb
 else
 WPEWEBKIT_VERSION_VALUE = ad5e8326cb2d1f1047edd5a1716d276acc72c0bd
 endif
@@ -233,8 +233,7 @@ ifeq ($(WPEWEBKIT_BUILD_JSC),y)
 WPEWEBKIT_BUILD_TARGETS += jsc
 endif
 ifeq ($(WPEWEBKIT_BUILD_WEBKIT),y)
-WPEWEBKIT_BUILD_TARGETS += libWPEWebKit.so libWPEWebInspectorResources.so \
-	WPE{Network,Storage,Web}Process WPEWebDriver
+WPEWEBKIT_BUILD_TARGETS += all
 
 endif
 
@@ -283,7 +282,7 @@ define WPEWEBKIT_INSTALL_TARGET_CMDS_WEBKIT
 	cp $(WPEWEBKIT_BUILDDIR)/bin/WPE{Network,Storage,Web}Process $(TARGET_DIR)/usr/bin/ && \
 	cp $(WPEWEBKIT_BUILDDIR)/bin/WPEWebDriver $(TARGET_DIR)/usr/bin/ && \
 	cp -d $(WPEWEBKIT_BUILDDIR)/lib/libWPE* $(TARGET_DIR)/usr/lib/ && \
-	$(STRIPCMD) $(TARGET_DIR)/usr/lib/libWPEWebKit.so.*
+	$(STRIPCMD) $(TARGET_DIR)/usr/lib/libWPEWebKit*.so.*
 endef
 else
 WPEWEBKIT_INSTALL_TARGET_CMDS_WEBKIT = true
