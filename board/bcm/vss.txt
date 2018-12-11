@@ -1,8 +1,8 @@
 WPE*
 libWPE*.so
+libwpe-*.so
 libwpegst*.so
-libbrcm*.so
-wpegst-*
 libepoxy.so
 libocdm.so
-libjpeg*.so
+libbrcm*.so
+libogg*.so

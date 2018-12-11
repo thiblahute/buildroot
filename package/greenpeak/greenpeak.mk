@@ -21,11 +21,13 @@ endif
 
 ifneq (,$(findstring $(GREENPEAK_CHIP), GP501 GP510 GP711))
   GREENPEAK_CHIP_REPO = gp501
+  GREENPEAK_REPO_VERSION = 1.1
 else ifneq (,$(findstring $(GREENPEAK_CHIP), GP502 GP712))
   GREENPEAK_CHIP_REPO = gp712
 else ifneq (,$(findstring $(GREENPEAK_CHIP), ZD4500ZNO))
   GREENPEAK_CHIP_REPO = zd4500zno
   GREENPEAK_CHIP = GP501
+  GREENPEAK_REPO_VERSION = 1.1
 else
   $(error "Chip ${GREENPEAK_CHIP} is not supported.")
 endif
@@ -36,18 +38,14 @@ GREENPEAK_VERSION = ${GREENPEAK_CHIP_REPO}_${GREENPEAK_PLATFORM}_${ARCH}_${GREEN
 ifeq ($(BR2_PACKAGE_GREENPEAK_KERNEL_MODULE),y)
 GREENPEAK_EXTRA_MOD_CFLAGS = \
      -D$(GREENPEAK_CHIP) \
-     -I$(STAGING_DIR)/usr/include \
-     -I$(STAGING_DIR)/usr/include/linux \
-     -nodefaultlibs \
-     -Wno-unused-variable \
-     -Wno-incompatible-pointer-types
+     -I$(STAGING_DIR)/usr/include 
 
-ifneq (,$(findstring $(GREENPEAK_CHIP), ZD4500ZNO))
+ifeq ($(BR2_PACKAGE_HAS_NEXUS),y)
 GREENPEAK_EXTRA_MOD_CFLAGS += \
-     -I$(STAGING_DIR)/usr/include/refsw/ \
      -I$(STAGING_DIR)/usr/include/refsw/linuxkernel/include/ \
      -DGP_USE_NEXUS_SPI \
-     -I${@D}/Driver/BCM97358Ref \
+     -nodefaultlibs \
+     -I${@D}/Driver/BCM97358Ref 
 
 define GREENPEAK_PREPARE_MODULE
 	$(INSTALL) -m 644 -D $(STAGING_DIR)/usr/include/refsw/linuxkernel/Module.symvers ${@D}/Driver/

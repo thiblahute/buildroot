@@ -69,6 +69,21 @@ config BR2_PACKAGE_WPEFRAMEWORK_PROVISIONPROXY
 	select BR2_PACKAGE_LIBPROVISION
 	help
 	  Allows provisioning of modules from the cloud.
+
+menuconfig BR2_PACKAGE_WPEFRAMEWORK_BROADCAST
+	bool "Broadcast"
+        default n
+	help
+	  Abstraction on QAM tuner and PSI/SI parser functionality.
+
+if BR2_PACKAGE_WPEFRAMEWORK_BROADCAST
+config BR2_PACKAGE_WPEFRAMEWORK_BROADCAST_SI_PARSING
+	bool "SI Parsing"
+        default n
+	help
+	  Enable functionality to automatically parse SI information on the 
+          tuned streams.
+endif
           
 endmenu
 
@@ -82,7 +97,6 @@ source "package/wpe/wpeframework-linearbroadcastplayer/Config.in"
 source "package/wpe/wpeframework-netflix/Config.in"
 source "package/wpe/wpeframework-packager/Config.in"
 source "package/wpe/wpeframework-playgiga/Config.in"
-source "package/wpe/wpeframework-power/Config.in"
 source "package/wpe/wpeframework-provisioning/Config.in"
 source "package/wpe/wpeframework-spotify/Config.in"
 source "package/wpe/wpeframework-switchboard/Config.in"

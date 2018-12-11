@@ -4,7 +4,9 @@
 #
 ################################################################################
 
-ifeq ($(BR2_PACKAGE_BCM_REFSW_16_1),y)
+ifeq ($(BR2_PACKAGE_UMA_SDK),y)
+GST1_BCM_VERSION = 17.1-7
+else ifeq ($(BR2_PACKAGE_BCM_REFSW_16_1),y)
 GST1_BCM_VERSION = 16.1
 else ifeq ($(BR2_PACKAGE_BCM_REFSW_16_2),y)
 GST1_BCM_VERSION = 16.2
@@ -16,10 +18,12 @@ else ifeq ($(BR2_PACKAGE_BCM_REFSW_17_1_RDK),y)
 GST1_BCM_VERSION = 17.1
 else ifeq ($(BR2_PACKAGE_BCM_REFSW_17_3_RDK),y)
 GST1_BCM_VERSION = 17.1-7
-else ifneq ($(filter y,$(BR2_PACKAGE_ACN_SDK) $(BR2_PACKAGE_HOMECAST_SDK)),)
+else ifneq ($(filter y,$(BR2_PACKAGE_ACN_SDK)),)
 GST1_BCM_VERSION = 17.1-5
+else ifneq ($(filter y,$(BR2_PACKAGE_HOMECAST_SDK)),)
+GST1_BCM_VERSION = 961a36dcd30c91330b8a9503e12ec3ddb30b70b6
 else ifneq ($(filter y,$(BR2_PACKAGE_VSS_SDK)),)
-GST1_BCM_VERSION = dd00f0762b7dfed4e4e657482d085e554201fa48
+GST1_BCM_VERSION = 17.1-12
 else
 GST1_BCM_VERSION = 15.2
 endif
